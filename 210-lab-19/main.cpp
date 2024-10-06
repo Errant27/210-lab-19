@@ -8,7 +8,7 @@ using namespace std;
 const int FILE_SIZE = 12;
 const int PREC = 3;
 
-struct Review {
+struct Review {    // Review strcut to build the list
     double rating;
     string comment;
     Review *next;
@@ -17,7 +17,7 @@ struct Review {
 class Movie
 {
 private:
-    string title;
+    string title;    //Private memberd for the title and the linked list
     Review *head;
     Review *rev1;
     Review *rev2;
@@ -25,8 +25,9 @@ private:
     
 
 public:
-    Movie() {}
+    Movie() {}    // Default constructor
     
+    // Constructor with parameters
     Movie(string name, Review *&h, Review *&review1, Review *&review2, Review *&review3) : title{ name }, head{ h }, rev1{ review1 }, rev2{ review2 }, rev3{ review3 }
     {
         head = rev1;
@@ -35,9 +36,9 @@ public:
         rev3->next = nullptr;
     }
     
-    string getTitle() { return title; }
+    string getTitle() { return title; }   // Title getter function
     
-    void getList() {
+    void getList() {    // List getter function
         for (int i = 0; i < 3; i++) {
             cout << "Rating " << i + 1 << ": " << setprecision(PREC) << head->rating << endl;
             cout << "Comment: "<< head->comment << endl;
@@ -47,28 +48,28 @@ public:
     
 }; // End of class
 
-void setRating(Review*&);
-void free_pointer(Review*&);
+void setRating(Review*&);    // Function prototype to set the rating for a random number
+void free_pointer(Review*&);    // Function prototype to free pointer
 
 int main()
 {
-    Review *rv1 =  nullptr;
+    Review *rv1 =  nullptr;    // main struct pointers to build the list
     Review *rv2 = nullptr;
     Review *rv3 =  nullptr;
     Review *hd =  nullptr;
-    Movie movieArray[4];
+    Movie movieArray[4];    // Movie class array;
     
-    ifstream reader;
+    ifstream reader;    // File reader and file name
     string fileName = "review_comments.txt";
     
-    reader.open(fileName);
+    reader.open(fileName);    // File is opened
     
     if (!reader)
-        cout << "Failed to opend file.\n";
+        cout << "Failed to open file.\n";    // File open error message
     else {
-        for (int i = 0; i < FILE_SIZE; i++) {
+        for (int i = 0; i < FILE_SIZE; i++) {    // For loop to build list
             
-            rv1 = new Review;
+            rv1 = new Review;    // Each node in the list is dynamically allocated
             reader >> rv1->comment;
             setRating(rv1);
             hd = rv1;
@@ -84,20 +85,20 @@ int main()
             rv2->next = rv3;
             rv3->next = nullptr;
             
-            Movie element{"Movie Title", hd, rv1, rv2, rv3};
-            movieArray[i] = element;
+            Movie element{"Movie Title", hd, rv1, rv2, rv3};    // nodes and head pointer sent to Movie constructor to build Movie object
+            movieArray[i] = element;    // Movie object stored in array
             
-            free_pointer(rv1);
+            free_pointer(rv1);    // pointers are freed to store new values in next loop iteraton
             free_pointer(rv2);
             free_pointer(rv3);
         }
     }
     
-    reader.close();
+    reader.close();    // File closed
     
     
         
-    for (int j = 0; j < 4; j++) {
+    for (int j = 0; j < 4; j++) {    // Loop to output the Movie details of each object in the Movie array
         cout << "---------\n";
         cout << movieArray[j].getTitle() << endl;
         movieArray[j].getList();
