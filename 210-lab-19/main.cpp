@@ -35,14 +35,6 @@ public:
         rev3->next = nullptr;
     }
     
-//    ~Movie() {
-//        delete head;
-//        delete rev1;
-//        delete rev2;
-//        delete rev3;
-//    }
-    
-    
     string getTitle() { return title; }
     
     void getList() {
@@ -95,9 +87,9 @@ int main()
             Movie element{"Movie Title", hd, rv1, rv2, rv3};
             movieArray[i] = element;
             
-//            free_pointer(rv1);
-//            free_pointer(rv2);
-//            free_pointer(rv3);
+            free_pointer(rv1);
+            free_pointer(rv2);
+            free_pointer(rv3);
         }
     }
     
